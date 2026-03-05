@@ -1,11 +1,19 @@
+print("DEBUG: main.py started", flush=True)
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.predict import predict_top3
+from contextlib import asynccontextmanager
+from app.predict import predict_top3, load_predictor
 from app.schemas import CropInput, PredictionResponse
 from app.market import MarketData
 
-app = FastAPI(title="Crop Recommendation System")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Load model on startup
+    load_predictor()
+    yield
+
+app = FastAPI(title="Crop Recommendation System", lifespan=lifespan)
 
 # Initialize market service
 market_service = MarketData()
