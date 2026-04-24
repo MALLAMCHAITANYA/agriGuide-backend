@@ -1,91 +1,83 @@
-# agriGuide Backend (FastAPI)
+# ⚙️ AgriGuide - Backend (Intelligence Hub)
 
-The **agriGuide Backend** is a FastAPI-based API that powers the crop recommendation and market price features for the agriGuide application.
-
----
-
-## Features
-
-- **Crop Recommendation API**
-  - `POST /predict` – returns the **top 3 recommended crops** based on:
-    - Nitrogen (N)
-    - Phosphorus (P)
-    - Potassium (K)
-    - Temperature
-    - Humidity
-    - Soil pH
-    - Rainfall
-
-- **Market Price APIs**
-  - `GET /market/price/{crop}` – current price info for a crop.
-  - `GET /market/history/{crop}?days=30` – historical price data.
-  - `GET /market/stats/{crop}?days=30` – min / max / average prices.
-  - `GET /market/trend/{crop}` – simple market trend/forecast.
-
-- **CORS enabled** so the React frontend can call the API from `http://localhost:3000`.
+The **AgriGuide Backend** is the high-performance engine that powers our AI-driven agricultural solutions. Built with scalability and accuracy in mind, it handles complex Machine Learning inferences and real-time market data aggregation.
 
 ---
 
-## Tech Stack
+## 🧠 AI & Intelligence
 
-- **Language:** Python
-- **Framework:** FastAPI
-- **Server:** Uvicorn
-- **ML / Data:** scikit-learn, pandas, numpy, joblib
-- **Data source:** `data/Crop_recommendation.csv` + trained model (`app/model.pkl`)
+At the heart of the system is a **Random Forest Classifier** model trained on high-fidelity Soil and Climate datasets. 
+
+*   **Input Parameters**: Nitrogen (N), Phosphorus (P), Potassium (K), Temperature, Humidity, pH Value, and Rainfall.
+*   **Recommendation Model**: Predicts the top 3 most suitable crops with confidence scores.
+*   **Market Intelligence**: Aggregates commodity prices from data APIs and calculates trends, forecasts, and demand levels.
 
 ---
 
-## Project Structure
+## ✨ Core Features
 
-backend/
-├── app/
-│   ├── __init__.py
-│   ├── model.pkl              # trained ML model
-│   ├── label_encoder.pkl      # label encoder for crop names
-│   ├── predict.py             # top‑3 prediction logic
-│   ├── schemas.py             # Pydantic request/response models
-│   └── market.py              # market price & trend utilities
-├── data/
-│   └── Crop_recommendation.csv
-├── main.py                    # FastAPI entry point (app = FastAPI(...))
-├── model_training.py          # script for training the model
-├── requirements.txt           # backend Python dependencies
-└── .gitignore
+*   **⚡ High-Performance API**: Powered by **FastAPI** for near-instant response times.
+*   **📊 Market Logic**: Custom algorithms to process price history and generate "Rising," "Falling," or "Stable" trend signals.
+*   **🛡️ Robust Security**: Pre-configured CORS middleware for secure integration with Vercel and other frontend platforms.
+*   **📝 Auto-Documentation**: Integrated Swagger UI (`/docs`) for easy API testing and developer collaboration.
 
-Setup & Installation
-Clone the repository
-git clone https://github.com/<your-username>/agriGuide-backend.gitcd agriGuide-backend
-Create and activate a virtual environment (Windows example)
-python -m venv myvenvmyvenv\Scripts\activate
-Install dependencies
+---
+
+## 🛠️ Tech Stack
+
+*   **Framework**: [FastAPI](https://fastapi.tiangolo.com/)
+*   **Language**: Python 3.9+
+*   **Machine Learning**: Scikit-Learn, Joblib
+*   **Data Processing**: Pandas, NumPy
+*   **Server**: Uvicorn (ASGI)
+
+---
+
+## 🚀 Quick Setup
+
+### 1. Environment Setup
+Create and activate a virtual environment:
+```bash
+python -m venv myvenv
+# Windows
+myvenv\Scripts\activate
+# Mac/Linux
+source myvenv/bin/activate
+```
+
+### 2. Dependency Management
+Install required packages:
+```bash
 pip install -r requirements.txt
-Running the Server
-Start the FastAPI server with Uvicorn:
-uvicorn main:app --reload --host 127.0.0.1 --port 8000
-API root: http://127.0.0.1:8000
-Interactive docs (Swagger UI): http://127.0.0.1:8000/docs
-Alternative docs (ReDoc): http://127.0.0.1:8000/redoc
-Example: Crop Prediction
-Endpoint
-POST /predictContent-Type: application/json
-Request body
-{  "N": 90,  "P": 42,  "K": 43,  "temperature": 25.0,  "humidity": 80.0,  "ph": 6.5,  "rainfall": 200.0}
-Example response
-{  "recommendations": [    { "crop": "rice", "probability": 0.78 },    { "crop": "maize", "probability": 0.15 },    { "crop": "chickpea", "probability": 0.07 }  ]}
-Example: Market Price Endpoints
-Current price:
-GET /market/price/rice
-30‑day history:
-GET /market/history/rice?days=30
-Stats:
-GET /market/stats/rice?days=30
-Trend:
-GET /market/trend/rice
-Running Together with Frontend
-Start backend: uvicorn main:app --reload --host 127.0.0.1 --port 8000
-Start frontend (from frontend/ project): npm start
-Configure frontend to call http://127.0.0.1:8000 for API requests.
-License
-This project is for educational / demonstration purposes.
-Feel free to modify and extend it for your own use.
+```
+
+### 3. Launch the Hub
+Start the FastAPI server:
+```bash
+uvicorn main:app --reload
+```
+Visit `http://localhost:8000/docs` to test the API endpoints interactively.
+
+---
+
+## 🏗️ Production Deployment (Render)
+
+1. Create a **Web Service** on Render.
+2. Select your repository and set the **Root Directory** to `backend`.
+3. **Build Command**: `pip install -r requirements.txt`
+4. **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+5. Render will automatically handle SSL and provide a secure HTTPS endpoint.
+
+---
+
+## 📈 API Endpoints Overview
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/predict` | Get Top-3 crop recommendations from soil inputs. |
+| `GET` | `/market/price/{crop}` | Get current market price & location data. |
+| `GET` | `/market/trend/{crop}` | Get price forecasts and market sentiment. |
+| `GET` | `/` | Health check and server status. |
+
+---
+*Providing the logic behind smarter farming.* 🚜
