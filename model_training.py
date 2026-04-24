@@ -24,8 +24,8 @@ DATA_PATH = os.path.join(BASE_DIR, "data", "Crop_recommendation.csv")
 MODEL_DIR = os.path.join(BASE_DIR, "app")
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-print("📁 Dataset path:", DATA_PATH)
-print("📁 Model directory:", MODEL_DIR)
+print("[INFO] Dataset path:", DATA_PATH)
+print("[INFO] Model directory:", MODEL_DIR)
 
 # =====================================================
 # 🔹 LOAD DATASET
@@ -93,9 +93,9 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 
-print("\n🌱 Model Training Completed Successfully!")
-print(f"🎯 Accuracy: {accuracy * 100:.2f}%\n")
-print("📊 Classification Report:\n")
+print("\n[SUCCESS] Model Training Completed Successfully!")
+print(f"[METRIC] Accuracy: {accuracy * 100:.2f}%\n")
+print("[INFO] Classification Report:\n")
 print(classification_report(y_test, y_pred))
 
 # =====================================================
@@ -104,4 +104,4 @@ print(classification_report(y_test, y_pred))
 
 joblib.dump(model, os.path.join(MODEL_DIR, "model.pkl"))
 
-print("💾 Model saved successfully inside:", MODEL_DIR)
+print("[SUCCESS] Model saved successfully inside:", MODEL_DIR)
