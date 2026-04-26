@@ -1,5 +1,7 @@
 # ⚙️ AgriGuide - Backend (Intelligence Hub)
 
+**[🔗 View Live Demo](https://agriguide-web.vercel.app/)**
+
 The **AgriGuide Backend** is the high-performance engine that powers our AI-driven agricultural solutions. Built with scalability and accuracy in mind, it handles complex Machine Learning inferences and real-time market data aggregation.
 
 ---
